@@ -35,7 +35,7 @@ public interface IndexDao {
     @Select("select commodity_id commodityId, cls.classify_name classifyName, commodity_name commodityName, " +
             "commodity_explaini commodityExplaini,original_price originalPrice, current_price currentPrice, " +
             "commodity_picture commodityPicture, commodity_inventory commodityInventory, data_dictionary_id dataDictionaryId, " +
-            "cmd.classify_id classifyId from shoppingmall_commodity cmd,shoppingmall_classify cls " +
+            "cmd.classify_id classifyId, cmd.commodity_picture from shoppingmall_commodity cmd,shoppingmall_classify cls " +
             "where cmd.classify_id = cls.classify_id and data_dictionary_id = 4 and cmd.classify_id = #{classifyId} ")
     public List<Map<String, Object>> getFeatureCommodityByClassify(@Param("classifyId") int classifyId);
 
