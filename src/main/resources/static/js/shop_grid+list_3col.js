@@ -16,6 +16,7 @@ function pageClick(pageNum) {
     }
 }
 
+/** 跳转到商品详情页面 */
 function redirectShopDetail(commodityId) {
     window.location.href = "/front/shop_detail.html?commodityId="+ commodityId;
 }
