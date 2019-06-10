@@ -14,8 +14,9 @@ function loadFeatureCommodity(classifyId) {
 
                 for (i in data) {
                     $("#featureCommodity").append("<div class=\"col-6 col-md-4 col-lg-3\">\n" +
-                        "                      <div class=\"product\"><a class=\"product-img\" href=\"shop_detail.html\">" +
-                        "                        <img src=\"/assets/images/product/product01.png\" alt=\"\"></a>\n" +
+                        "                      <div class=\"product\">" +
+                        "                       <a class=\"product-img\" href=\"javascript:redirectShopDetail("+ data[i].commodityId +")\">" +
+                        "                        <img src=\"/images/"+ data[i].commodityPicture.split(",")[0] +"\" alt=\"\"></a>\n" +
                         "                        <h5 class=\"product-type\">"+ data[i].classifyName +"</h5>\n" +
                         "                        <h3 class=\"product-name\"> "+ data[i].commodityName +" </h3>\n" +
                         "                        <h3 class=\"product-price\">$ "+ data[i].currentPrice +" \n" +
@@ -38,6 +39,11 @@ function loadFeatureCommodity(classifyId) {
             }
         }
     });
+}
+
+/** 跳转到商品详情页面 */
+function redirectShopDetail(commodityId) {
+    window.location.href = "/front/shop_detail.html?commodityId="+ commodityId;
 }
 
 $(function(){
