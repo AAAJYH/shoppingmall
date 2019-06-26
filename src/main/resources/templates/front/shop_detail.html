@@ -55,16 +55,12 @@
               <div class="col-8">
                 <div class="navgition-menu d-flex align-items-center justify-content-center">
                   <ul class="mb-0">
-                    <li class="toggleable"> <a class="menu-item" href="index.html">首页</a>
-                      <ul class="sub-menu">
-                        <li><a href="index.html">Homepage 1</a></li>
-                        <li><a href="homepage02.html">Homepage 2</a></li>
-                        <li><a href="homepage03.html">Homepage 3</a></li>
-                        <li><a href="homepage04.html">Homepage 4</a></li>
-                        <li><a href="homepage05.html">Homepage 5</a></li>
-                      </ul>
+                    <li class="toggleable"> <a class="menu-item active" href="index.html">首页</a>
+                      <!--<ul class="sub-menu">-->
+                      <!--<li><a href="index.html">Homepage 1</a></li>-->
+                      <!--</ul>-->
                     </li>
-                    <li class="toggleable"> <a class="menu-item active" href="shop_grid+list_3col.html">购物</a>
+                    <li class="toggleable"> <a class="menu-item" href="/ShopController/shop?pageNum=1&pageSize=9">购物</a>
                       <ul class="sub-menu shop d-flex">
                         <div class="nav-column">
                           <h2>Layout shop</h2>
@@ -105,19 +101,23 @@
                         <li><a href="faq.html">常见问题</a></li>
                         <li><a href="coming_soon.html">马上来临</a></li>
                         <li><a href="contact_us.html">联系我们</a></li>
-                        <li><a href="404_error.html">404 错误</a></li>
+                        <li><a href="404_error.html">404 </a></li>
                       </ul>
                     </li>
                     <li class="toggleable"><a class="menu-item" href="about_us.html">关于我们</a></li>
                   </ul>
                 </div>
               </div>
+
+              <!-- 小图标 start -->
               <div class="col-2">
                 <div class="product-function d-flex align-items-center justify-content-end">
                   <div id="wishlist"><a class="function-icon icon_heart_alt" href=""></a></div>
-                  <div id="cart"><a class="function-icon icon_bag_alt" href=""><span>$150.00</span></a></div>
+                  <div id="cart"><a class="function-icon icon_bag_alt" href="shop_cart.html"><span>$150.00</span></a></div>
                 </div>
               </div>
+              <!-- 小图标 end -->
+
             </div>
           </div>
         </nav>
@@ -341,7 +341,7 @@
                         <input class="no-round-input" id="quantity" type="number" min="0" value="1">
                       </div>
                       <div class="product-select">
-                        <button class="add-to-cart normal-btn outline">添加到购物车</button>
+                        <button class="add-to-cart normal-btn outline" onclick="addCard()">添加到购物车</button>
                         <button class="add-to-compare normal-btn outline">+ Add to Compare</button>
                       </div>
                       <div class="product-share">

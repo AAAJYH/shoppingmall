@@ -1,14 +1,3 @@
-$(function(){
-    var search = location.search;
-    var commodityId = search.substr(search.indexOf("=")+1, search.length);
-    console.log("commodityId："+ commodityId);
-
-    if(commodityId != "") {
-        getCommodity(commodityId);
-    }
-
-});
-
 /** 根据商品Id查询商品详情 */
 function getCommodity(commodityId) {
     $.ajax({
@@ -41,7 +30,7 @@ function getCommodity(commodityId) {
                 "                        <input class=\"no-round-input\" id=\"quantity\" type=\"number\" min=\"0\" value=\"1\">\n" +
                 "                      </div>\n" +
                 "                      <div class=\"product-select\">\n" +
-                "                        <button class=\"add-to-cart normal-btn outline\">添加到购物车</button>\n" +
+                "                        <button class=\"add-to-cart normal-btn outline\" onclick='addCard("+data.commodityId+")'>添加到购物车</button>\n" +
                 "                        <button class=\"add-to-compare normal-btn outline\">+ Add to Compare</button>\n" +
                 "                      </div>\n" +
                 "                      <div class=\"product-share\">\n" +
@@ -53,3 +42,34 @@ function getCommodity(commodityId) {
         }
     });
 }
+
+/** 添加到购物车 */
+function addCard(commodityId) {
+    $.ajax({
+        url : '/shopDetailController/addCard',
+        type : 'post',
+        data : {commodityId : commodityId},
+        dataType : "text",
+        success : function(data) {
+            if(data > 0) {
+                alert("成功加入购物车");
+            }else {
+                alert("加入失败，再试一下");
+            }
+        }
+    });
+
+}
+
+$(function(){
+    /**  */
+    var search = location.search;
+    var commodityId = search.substr(search.indexOf("=")+1, search.length);
+    console.log("commodityId："+ commodityId);
+
+    /** 加载商品信息 */
+    if(commodityId != "") {
+        getCommodity(commodityId);
+    }
+
+});
