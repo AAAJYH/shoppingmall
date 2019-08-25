@@ -3,6 +3,7 @@ package com.jyh.shopdetail.controller;
 import com.alibaba.fastjson.JSON;
 import com.jyh.pojo.ShoppingCart;
 import com.jyh.shopdetail.service.ShopDetailService;
+import com.jyh.utils.CookieUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,7 @@ public class ShopDetailController {
                     /** 购物车Cookie存在相同商品，修改数量 */
                     if(sc.getCommodityName().equals(shoppingCart.getCommodityName())) {
                         sc.setCommodityNum(sc.getCommodityNum()+1);
-                        response.addCookie(addCookie(shoppingCartList));
+                        response.addCookie(CookieUtils.addCookie(JSON.toJSONString(shoppingCartList)));
                         isExistsCommodity = true;
                         break;
                     }
@@ -97,7 +98,7 @@ public class ShopDetailController {
                 /** 购物车cookie不存在相同的商品，新增商品 */
                 if(!isExistsCommodity) {
                     shoppingCartList.add(shoppingCart);
-                    response.addCookie(addCookie(shoppingCartList));
+                    response.addCookie(CookieUtils.addCookie(JSON.toJSONString(shoppingCartList)));
                 }
 
             }
@@ -106,19 +107,6 @@ public class ShopDetailController {
             return 0;
         }
         return 1;
-    }
-
-    /** 添加cookie */
-    public Cookie addCookie(List<ShoppingCart> shoppingCartList) throws UnsupportedEncodingException {
-        String jsonStr = JSON.toJSONString(shoppingCartList);
-        logger.info("jsonStr："+ jsonStr);
-        /** Cookie中不允许出现符号如 , : "  所以使用URLEncoder.encode对字符串进行转码 */
-        Cookie cookie = new Cookie("shoppingCartList", URLEncoder.encode(jsonStr, "utf-8"));
-        /** 有效时长7天 */
-        cookie.setMaxAge(60*60*24*7);
-        /** 所有路径都能访问次cookie */
-        cookie.setPath("/");
-        return cookie;
     }
 
 }

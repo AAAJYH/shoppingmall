@@ -3,18 +3,17 @@ package com.jyh.shopcart.controller;
 import com.alibaba.fastjson.JSON;
 import com.jyh.pojo.ShoppingCart;
 import com.jyh.shopcart.service.ShopCartService;
+import com.jyh.utils.CookieUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.List;
 
@@ -85,11 +84,8 @@ public class ShopCartController {
                                     shoppingCartIterator.remove();
 
                                     /** 重新保存购物车cookie */
-                                    String jsonStr = URLEncoder.encode(JSON.toJSONString(shoppingCartList), "utf-8");
-                                    Cookie cookie = new Cookie("shoppingCartList", jsonStr);
-                                    cookie.setPath("/");
-                                    cookie.setMaxAge(60*60*24*7);
-                                    response.addCookie(cookie);
+
+                                    response.addCookie(CookieUtils.addCookie(JSON.toJSONString(shoppingCartList)));
                                     logger.info("购物车删除后："+ shoppingCartIterator.toString());
 
                                     return 1;
@@ -109,4 +105,31 @@ public class ShopCartController {
         return 0;
     }
 
+    @RequestMapping("emptyShoppingCart")
+    public int emptyShoppingCart(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            if (request.getSession().getAttribute("user") != null) {
+                logger.info("已登录");
+                /**
+                 * @TODO
+                 * 根据用户id清空购物车
+                 */
+                return 1;
+            }else {
+                logger.info("未登录");
+                /** 清空cookie购物车集合 */
+                Cookie cookie = new Cookie("shoppingCartList", "");
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                return 1;
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }
+
+
